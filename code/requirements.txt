@@ -10,7 +10,6 @@ scikit-survival
 # Bayes
 pymc
 arviz
-bnpy
 
 # Vizu
 matplotlib
