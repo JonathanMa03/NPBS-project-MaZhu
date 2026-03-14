@@ -1,6 +1,23 @@
-# Sample
-python 
+# Basics
 numpy
+scipy
 pandas
-NumPyro
-yfinance
+
+# Survival
+lifelines
+scikit-survival
+
+# Bayes
+pymc
+arviz
+bnpy
+
+# Vizu
+matplotlib
+seaborn
+
+# Data
+scikit-learn
+requests
+openai
+xarray
