@@ -1,4 +1,4 @@
-Bayesian Nonparametric Survival Modeling of Cancer Outcomes Using Dirichlet Process Mixtures
+# Bayesian Nonparametric Survival Modeling of Cancer Outcomes Using Dirichlet Process Mixtures
 
 This repository hosts the project for Bayesian nonparametric survival analysis of cancer outcomes using Dirichlet Process mixture models. The goal of this project is to explore flexible survival modeling approaches that relax strong parametric assumptions commonly used in classical survival analysis.
 
@@ -8,7 +8,7 @@ Authors: J. Ma, S. Zhu
 
 ⸻
 
-Aim
+## Aim
 
 The primary objective of this project is to apply Bayesian nonparametric methods to cancer survival data in order to:
 	•	flexibly estimate survival time distributions
@@ -17,13 +17,13 @@ The primary objective of this project is to apply Bayesian nonparametric methods
 
 ⸻
 
-Keywords
+## Keywords
 
 Bayesian nonparametrics, Dirichlet Process mixtures, survival analysis, cancer outcomes, biomedical statistics
 
 ⸻
 
-Data Source
+## Data Source
 
 Cancer survival data will be obtained from publicly available biomedical datasets. Potential sources include:
 	•	The Cancer Genome Atlas (TCGA) via the Genomic Data Commons (GDC)
@@ -38,7 +38,7 @@ These datasets typically include variables such as:
 
 ⸻
 
-Methodology
+## Methodology
 
 The central modeling framework is a Dirichlet Process mixture model for survival times. Rather than assuming a fixed parametric form for the survival distribution, the DP mixture model represents the distribution as a potentially infinite mixture of component distributions.
 
@@ -51,7 +51,7 @@ Posterior inference will be performed using sampling-based methods, and results 
 
 ⸻
 
-Structure
+## Structure
 
 ```text
 repo/
