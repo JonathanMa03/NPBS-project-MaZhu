@@ -142,6 +142,8 @@ project/
 │   ├── 09_simulation_study.ipynb
 │   └── 10_results_and_discussion.ipynb
 │
+├── external/
+│   └── resolve_ipd/         # Original RESOLVE-IPD for comparison
 ├── src/
 │   ├── acquisition/                    # source registries, trial metadata, file/path utilities
 │   ├── vec_km/                         # vector KM extraction: paths, axes, censor marks, coordinate transforms

@@ -1,0 +1,3 @@
+[submodule "external/resolve_ipd"]
+	path = external/resolve_ipd
+	url = https://github.com/JackZhao0312/RESOLVE-IPD
