@@ -1,81 +1,159 @@
-# Bayesian Nonparametric Survival Modeling of Cancer Outcomes Using Dirichlet Process Mixtures
-
-This repository hosts the project for Bayesian nonparametric survival analysis of cancer outcomes using Dirichlet Process mixture models. The goal of this project is to explore flexible survival modeling approaches that relax strong parametric assumptions commonly used in classical survival analysis.
-
-Traditional survival models such as exponential, Weibull, or Cox proportional hazards models assume specific functional forms for the hazard or survival distribution. In contrast, Dirichlet Process (DP) mixture models allow the survival distribution to be estimated nonparametrically, enabling the model to capture heterogeneous patient populations and potentially reveal latent survival subgroups.
+# Causal Survival Probability Estimation after Reconstructed IPD using Auxiliary Summary Information
 
 Authors: [Jonathan Ma](https://jonathanma03.github.io/), [Sijia Zhu](https://github.com/ChesleaZ)
+
+Mentors: [Dr. Yanxun Xu](https://www.ams.jhu.edu/~yxu70/), [Lang Lang](https://scholar.google.com/citations?user=BUyRyUIAAAAJ&hl=en)
 
 ---
 
 ## Aim
 
-The primary objective of this project is to apply Bayesian nonparametric methods to cancer survival data in order to:
-- flexibly estimate survival time distributions
-- identify latent patient subgroups with distinct survival profiles
-- compare nonparametric Bayesian models with classical survival models
+This project develops a framework for estimating causal survival probabilities using reconstructed individual patient data (IPD) from published Kaplan–Meier curves, augmented with auxiliary summary information such as baseline characteristics reported in Table 1.
+
+Within a single randomized trial, causal survival effects are identifiable under the original randomization scheme. However, when pooling reconstructed IPD across multiple studies, this identification no longer holds due to heterogeneity in baseline covariate distributions and study populations. In such settings, auxiliary paper-level summaries provide partial information about the underlying covariate structure, but do not fully determine it.
+
+We propose a Bayesian nonparametric approach that models the unknown covariate distribution (or equivalently, reweighting scheme) using a flexible prior constrained by auxiliary summary statistics. This allows causal survival estimands—specifically treatment-specific survival probabilities at fixed time points—to be estimated while propagating uncertainty arising from both IPD reconstruction and incomplete covariate information.
 
 ---
 
 ## Keywords
 
-Bayesian nonparametrics, Dirichlet Process mixtures, survival analysis, cancer outcomes, biomedical statistics
+Bayesian nonparametrics, causal survival analysis, IPD reconstruction, Kaplan–Meier, Dirichlet process, summary statistics, transportability, reweighting, oncology trials
 
 ---
 
 ## Data Source
 
-Cancer survival data will be obtained from publicly available biomedical datasets. Potential sources include:
-- The Cancer Genome Atlas (TCGA) via the Genomic Data Commons (GDC)
-- cBioPortal clinical datasets
-- METABRIC breast cancer survival dataset
+The project operates on reconstructed IPD derived from published Kaplan–Meier curves using established reconstruction methods (e.g., RESOLVE-IPD). The reconstructed dataset contains:
+- Event or censoring times
+- Event indicators
+- Treatment assignments
 
-These datasets typically include variables such as:
-- survival time
-- censoring indicator (event vs. censored)
-- demographic variables
-- clinical covariates (e.g., tumor stage or treatment information)
+In addition, auxiliary summary statistics extracted from trial publications are used, including:
+- Baseline covariate summaries (e.g., mean age, gender proportions)
+- Subgroup-level information where available
+- Study-level characteristics
+
+For simulation studies, synthetic multi-study datasets are generated with known covariate distributions and survival mechanisms, allowing evaluation of bias, variance, and coverage under controlled violations of identifiability.
 
 ---
 
 ## Methodology
 
-The central modeling framework is a Dirichlet Process mixture model for survival times. Rather than assuming a fixed parametric form for the survival distribution, the DP mixture model represents the distribution as a potentially infinite mixture of component distributions.
+### 1. Problem Setup
 
-This approach allows the model to:
-- flexibly estimate survival distributions
-- capture multimodal survival behavior
-- identify latent subgroups with different survival risks
+Let $T$ denote survival time, $A \in {0,1}$ treatment assignment, and $X$ baseline covariates. The target estimand is the causal survival probability at a fixed time point $t_0$:
 
-Posterior inference will be performed using sampling-based methods, and results will be compared with classical survival models such as Kaplan–Meier estimators and parametric survival models.
+$$
+S^a(t_0) = \Pr(T^a > t_0), \quad a \in {0,1},
+$$
+
+with contrast:
+
+$$
+\Delta(t_0) = S^1(t_0) - S^0(t_0).
+$$
+
+After pooling reconstructed IPD across studies, the distribution of $X$ is not observed and cannot be recovered from individual-level data alone.
+
+### 2. Bayesian Nonparametric Reweighting
+
+We model the unknown target covariate distribution implicitly through a set of weights $w = (w_1, \dots, w_n)$ assigned to reconstructed individuals:
+
+$$
+w \sim \text{Dirichlet}(\alpha).
+$$
+
+These weights represent a flexible, nonparametric distribution over the empirical support of the reconstructed data.
+
+To incorporate auxiliary summary information, we impose constraints such that weighted covariate summaries match reported values:
+
+$$
+\sum_i w_i X_i \approx \bar{X}_{\text{reported}}.
+$$
+
+This is implemented via a pseudo-likelihood or soft constraint, allowing uncertainty around reported summaries.
+
+### 3. Estimation of Causal Survival
+
+Given weights $w$, treatment-specific survival probabilities are estimated as:
+
+$$
+S^a(t_0) = \sum_{i: A_i = a} w_i \cdot \mathbf{1}(T_i > t_0).
+$$
+
+Posterior inference integrates over the distribution of weights, yielding:
+- posterior mean estimates of $S^a(t_0)$
+- credible intervals reflecting uncertainty in covariate structure
+
+
+### 4. Simulation Study
+
+A multi-study simulation framework is used to evaluate performance:
+- Studies with heterogeneous covariate distributions
+- Treatment randomized within each study
+- Only aggregate summaries available for pooled inference
+
+Methods compared:
+- Naive pooled estimator (ignores covariate shift)
+- Parametric reweighting (e.g., linear or entropy balancing)
+- Proposed BNP reweighting approach
+
+Evaluation metrics:
+- Bias
+- Root mean squared error
+- Coverage of credible intervals
+
+### 5. Extensions (Post-Project)
+
+Planned extensions include:
+- Dependent Dirichlet process models for study-specific distributions
+- Joint modeling of reconstruction uncertainty and causal inference
+- Full survival-curve inference beyond fixed time points
+- Application to real multi-trial oncology datasets
 
 ---
 
-## Structure
+## File Structure
 
 ```text
-repo/
-├── code/                        
-│   └── requirements.txt          # Python dependencies
+project/
 │
-├── data/                         # Raw and processed datasets
+├── data/
+│   ├── raw/                         # extracted KM curves, trial summaries
+│   ├── processed/                   # reconstructed IPD datasets
+│   └── outputs/                     # posterior traces, results
+|
+├── docs/
+│   ├── CHANGELOG.md                 
+│   ├── Python_git.md                  
+│   └── R_git.md                     
 │
-├── docs/                         
-│   ├── CHANGELOG.md              # Project updates and version history
-│   ├── R_git.md                  # Quick reference for GitHub usage in R
-│   └── Python_git.md             # Quick reference for GitHub usage in Python
-│
-├── notebooks/                    # Analysis notebooks for each project stage
+├── notebooks/
 │   ├── 01_data_acquisition.ipynb
-│   ├── 02_data_preprocessing.ipynb
-│   ├── 03_exploratory_survival_analysis.ipynb
-│   ├── 04_parametric_survival_models.ipynb
-│   ├── 05_dp_survival_model.ipynb
-│   ├── 06_posterior_inference.ipynb
-│   ├── 07_model_comparison.ipynb
-│   └── 08_results_and_discussion.ipynb
+│   ├── 02_ipd_reconstruction.ipynb
+│   ├── 03_data_preprocessing.ipynb
+│   ├── 04_exploratory_analysis.ipynb
+│   ├── 05_simulation_study.ipynb
+│   └── 06_bnp_causal_survival.ipynb
 │
-├── .gitignore                    # Files and folders excluded from Git tracking
-├── LICENSE                       # Usage license
-└── README.md                     # Project overview
+├── src/
+│   ├── reconstruction/              # IPD reconstruction utilities
+│   ├── weighting/                   # BNP weighting + constraints
+│   ├── survival/                    # survival estimation functions
+│   └── simulation/                  # data-generating processes
+│
+├── reports/
+│   ├── figures/
+│   ├── presentation.pdf
+│   └── final_report.pdf
+│
+├── .gitignore
+├── LICENSE
+├── README.md
+└── requirements.txt
 ```
+
+Lang, L., et al. (2024). RESOLVE-IPD: A high-fidelity approach to reconstructing individual patient data from Kaplan–Meier curves with subgroup information. [Link](https://arxiv.org/pdf/2511.01785)
+
+Ying, S., et al. (2025). Summary-statistics-based causal inference under covariate shift: methods and applications [Link](https://arxiv.org/pdf/2603.02474v1)
