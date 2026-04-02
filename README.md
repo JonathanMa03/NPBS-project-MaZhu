@@ -120,31 +120,44 @@ Planned extensions include:
 project/
 │
 ├── data/
-│   ├── raw/                         # extracted KM curves, trial summaries
-│   ├── processed/                   # reconstructed IPD datasets
-│   └── outputs/                     # posterior traces, results
-|
+│   ├── raw/                             # original trial PDFs, SVGs, extracted tables, source registry
+│   ├── interim/                         # intermediate RESOLVE-IPD artifacts (VEC-KM, CEN-KM, MAPLE)
+│   ├── processed/                       # reconstructed IPD, subgroup ensembles, pooled analysis datasets
+│   └── outputs/                         # posterior traces, summaries, simulation results, final derived outputs
+│
 ├── docs/
-│   ├── CHANGELOG.md                 
-│   ├── Python_git.md                  
-│   └── R_git.md                     
+│   ├── CHANGELOG.md
+│   ├── Python_git.md
+│   └── R_git.md
 │
 ├── notebooks/
 │   ├── 01_data_acquisition.ipynb
-│   ├── 02_ipd_reconstruction.ipynb
-│   ├── 03_data_preprocessing.ipynb
-│   ├── 04_exploratory_analysis.ipynb
-│   ├── 05_simulation_study.ipynb
-│   └── 06_bnp_causal_survival.ipynb
+│   ├── 02_vec_km_extraction.ipynb
+│   ├── 03_cen_km_reconstruction.ipynb
+│   ├── 04_maple_subgroup_recovery.ipynb
+│   ├── 05_reconstruction_validation.ipynb
+│   ├── 06_trial_level_survival_estimands.ipynb
+│   ├── 07_pooled_causal_survival_with_auxiliary_summaries.ipynb
+│   ├── 08_bnp_extension.ipynb
+│   ├── 09_simulation_study.ipynb
+│   └── 10_results_and_discussion.ipynb
 │
 ├── src/
-│   ├── reconstruction/              # IPD reconstruction utilities
-│   ├── weighting/                   # BNP weighting + constraints
-│   ├── survival/                    # survival estimation functions
-│   └── simulation/                  # data-generating processes
+│   ├── acquisition/                    # source registries, trial metadata, file/path utilities
+│   ├── vec_km/                         # vector KM extraction: paths, axes, censor marks, coordinate transforms
+│   ├── cen_km/                         # censor-aware IPD reconstruction and risk-table alignment
+│   ├── maple/                          # subgroup label recovery, optimization, refinement, ensembles
+│   ├── validation/                     # reconstruction checks, summary-stat comparison, RMSE / diagnostics
+│   ├── survival/                       # KM, milestone survival, RMST, hazard summaries
+│   ├── causal/                         # pooled causal estimands, weighting, standardization, uncertainty propagation
+│   ├── bnp/                            # Bayesian nonparametric extension: Dirichlet / DP weighting and posterior inference
+│   ├── simulation/                     # synthetic trials, survival generation, summary-stat generation, scenarios
+│   ├── utils/                          # generic helpers: plotting, serialization, logging, math, paths
+│   └── config.py                       # project-wide constants and default settings
 │
 ├── reports/
-│   ├── figures/
+│   ├── figures/                        # exported figures for paper and slides
+│   ├── tables/                         # exported summary tables
 │   ├── presentation.pdf
 │   └── final_report.pdf
 │
