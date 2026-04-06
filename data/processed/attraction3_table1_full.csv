@@ -1,0 +1,12 @@
+variable,nivolumab,chemotherapy,trial_id,subgroup
+age_median,64.0,67.0,ATTRACTION-3,overall
+male,0.85,0.89,ATTRACTION-3,overall
+asian,0.96,0.96,ATTRACTION-3,overall
+ecog_0,0.48,0.51,ATTRACTION-3,overall
+ecog_1,0.52,0.49,ATTRACTION-3,overall
+recurrent_yes,0.49,0.43,ATTRACTION-3,overall
+stage_II_III,0.07,0.11,ATTRACTION-3,overall
+stage_IV,0.88,0.83,ATTRACTION-3,overall
+metastasis_ge2,0.58,0.56,ATTRACTION-3,overall
+pd_l1_ge10,0.3,0.27,ATTRACTION-3,overall
+smoking_current,0.1,0.14,ATTRACTION-3,overall

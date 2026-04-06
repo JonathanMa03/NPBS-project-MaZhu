@@ -1,0 +1,14 @@
+variable,camrelizumab,chemotherapy,trial_id
+age_median,60.0,60.0,ESCORT
+male,0.91,0.87,ESCORT
+ecog_0,0.2,0.2,ESCORT
+ecog_1,0.8,0.8,ESCORT
+metastasis_ge2,0.58,0.62,ESCORT
+liver_met,0.24,0.21,ESCORT
+lung_met,0.47,0.43,ESCORT
+bone_met,0.13,0.13,ESCORT
+lymph_node_met,0.83,0.88,ESCORT
+pd_l1_ge10,0.11,0.16,ESCORT
+surgery,0.5,0.48,ESCORT
+radiotherapy,0.68,0.63,ESCORT
+first_line_chemo,0.96,0.93,ESCORT
