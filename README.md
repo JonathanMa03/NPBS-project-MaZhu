@@ -169,6 +169,20 @@ project/
 └── requirements.txt
 ```
 
+### References
+
 Lang, L., et al. (2024). RESOLVE-IPD: A high-fidelity approach to reconstructing individual patient data from Kaplan–Meier curves with subgroup information. [Link](https://arxiv.org/pdf/2511.01785)
 
 Ying, S., et al. (2025). Summary-statistics-based causal inference under covariate shift: methods and applications [Link](https://arxiv.org/pdf/2603.02474v1)
+
+Rott, K. W., et al. (2025). Causally interpretable meta-analysis combining aggregate and individual participant data. American Journal of Epidemiology, 194(7), 2060–2068. [Link](https://academic.oup.com/aje/article/194/7/2060/7762598)
+
+Yao Zhao, Haoyue Sun, Yantian Ding, and Yanxun Xu. Km-gpt: An automated pipeline for reconstructing individual patient data from kaplan-meier plots, 2025. [Link](https://arxiv.org/abs/2509.18141)
+
+### Datasets
+
+Doi, T., Bennouna, J., Shen, L., Enzinger, P. C., Wang, R., Csiki, I., et al. (2016). KEYNOTE-181: Phase 3, open-label study of second-line pembrolizumab vs single-agent chemotherapy in patients with advanced/metastatic esophageal adenocarcinoma. Journal of Clinical Oncology, 34(15_suppl), TPS4140. [Link](https://ascopubs.org/doi/10.1200/JCO.2016.34.15_suppl.TPS4140)
+
+Huang, J., Xu, J., Chen, Y., Zhuang, W., Zhang, Y., Chen, Z., et al. (2020). Camrelizumab versus investigator’s choice of chemotherapy as second-line therapy for advanced or metastatic oesophageal squamous cell carcinoma (ESCORT): A multicentre, randomised, open-label, phase 3 study. The Lancet Oncology, 21(6), 832–842 [Link](https://pubmed.ncbi.nlm.nih.gov/32416073/)
+
+Kato, K., Cho, B. C., Takahashi, M., Okada, M., Lin, C. Y., Chin, K., et al. (2019). Nivolumab versus chemotherapy in patients with advanced oesophageal squamous cell carcinoma refractory or intolerant to previous chemotherapy (ATTRACTION-3): A multicentre, randomised, open-label, phase 3 trial. The Lancet Oncology, 20(11), 1506–1517 [Link](https://pubmed.ncbi.nlm.nih.gov/31582355/)
