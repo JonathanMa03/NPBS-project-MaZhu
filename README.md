@@ -162,16 +162,19 @@ project/
 │   └── R_git.md
 │
 ├── notebooks/
-│   ├── 01_data_acquisition.ipynb
-│   ├── 02_vec_km_extraction.ipynb
-│   ├── 03_cen_km_reconstruction.ipynb
-│   ├── 04_maple_subgroup_recovery.ipynb
-│   ├── 05_reconstruction_validation.ipynb
-│   ├── 06_trial_level_survival_estimands.ipynb
-│   ├── 07_pooled_causal_survival_with_auxiliary_summaries.ipynb
-│   ├── 08_bnp_extension.ipynb
-│   ├── 09_simulation_study.ipynb
-│   └── 10_results_and_discussion.ipynb
+│   ├── 01_data_acquisition.ipynb                 # Generation of simulation data
+│   ├── 02_ipd_reconstruction.ipynb               # Self Implemented RESOLVE IPD
+│   ├── 03_reconstruction_validation.ipynb        # Comparison to original RESOLVE IPD
+│   ├── 04_multitrial_heterogeneity.ipynb         # Reconstruction of multiple trials
+│   ├── 05_simulation_study.ipynb                 # Running reconstruction on multiple trials
+│   ├── 05a_stress_test_study.ipynb               # Perturbing our simulation data to stress test
+│   ├── 05b_simulation_bnp_causal_survival.ipynb  # Reweighting and BNP Causal Estimand
+│   ├── 06_real_data_application.ipynb            # Expanding to real data outputed from KM-GPT 
+│   ├── 06a_covariate_augmentation.ipynb          # Data augmentation based on Table 1 Baseline Summaries
+│   ├── 06b_target_weighting.ipynb                # Applying BNP Causal Survival stuff to real data
+│   ├── 07_resolve_ipd.ipynb                      # check robustness by using the same pipeline on RESOLVE-IPD data
+│   ├── 07a_bnp_extension.ipynb                   # Survival estimation by DPSM
+│   └── 08_results_discussion.ipynb               # Results comparison
 │
 ├── external/
 │   └── resolve_ipd/         # Original RESOLVE-IPD for comparison
