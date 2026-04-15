@@ -12,13 +12,13 @@ This project develops a framework for estimating causal survival probabilities u
 
 Within a single randomized trial, causal survival effects are identifiable under the original randomization scheme. However, when pooling reconstructed IPD across multiple studies, this identification no longer holds due to heterogeneity in baseline covariate distributions and study populations. In such settings, auxiliary paper-level summaries provide partial information about the underlying covariate structure, but do not fully determine it.
 
-We propose a Bayesian nonparametric approach that models the unknown covariate distribution (or equivalently, reweighting scheme) using a flexible prior constrained by auxiliary summary statistics. This allows causal survival estimands—specifically treatment-specific survival probabilities at fixed time points—to be estimated while propagating uncertainty arising from both IPD reconstruction and incomplete covariate information.
+We propose a Bayesian nonparametric framework that operates at two levels. First, we model the unknown covariate distribution (or equivalently, reweighting scheme) using a flexible Dirichlet-based prior constrained by auxiliary summary statistics. Second, we explore nonparametric Bayesian survival modeling as an extension, allowing the underlying survival distribution itself to be modeled flexibly rather than relying solely on empirical estimators.
 
 ---
 
 ## Keywords
 
-Bayesian nonparametrics, causal survival analysis, IPD reconstruction, Kaplan–Meier, Dirichlet process, summary statistics, transportability, reweighting, oncology trials
+Bayesian nonparametrics, causal survival analysis, IPD reconstruction, Kaplan–Meier, Dirichlet process, summary statistics, transportability, reweighting, oncology trials, Dirichlet Process Mixture, Survival Models
 
 ---
 
@@ -56,7 +56,7 @@ $$
 
 After pooling reconstructed IPD across studies, the distribution of $X$ is not observed and cannot be recovered from individual-level data alone.
 
-### 2. Bayesian Nonparametric Reweighting
+### 2. Bayesian Nonparametric Reweighting (Design-Based)
 
 We model the unknown target covariate distribution implicitly through a set of weights $w = (w_1, \dots, w_n)$ assigned to reconstructed individuals:
 
@@ -74,7 +74,31 @@ $$
 
 This is implemented via a pseudo-likelihood or soft constraint, allowing uncertainty around reported summaries.
 
-### 3. Estimation of Causal Survival
+### 3. Bayesian Nonparametric Survival Modeling (Extension)
+
+In addition to design-based reweighting, we explore a model-based Bayesian nonparametric approach to survival estimation.
+
+Rather than relying on empirical Kaplan–Meier estimators, we model the survival distribution using a Dirichlet process mixture model:
+
+$$
+G \sim \text{DP}(\alpha, G_0), \quad T_i \sim G,
+$$
+
+where $G$ represents an unknown survival distribution. In practice, this is implemented via a mixture model (e.g., mixtures of exponential or Weibull distributions), allowing flexible modeling of hazard heterogeneity.
+
+This provides an alternative estimate of treatment-specific survival:
+
+$$
+S^a(t_0) = \mathbb{E}_G[\mathbf{1}(T > t_0) \mid A = a],
+$$
+
+which can be compared to the design-based estimator obtained via reweighting.
+
+This extension serves two purposes:
+- to assess sensitivity of results to the choice of survival model
+- to connect the causal reweighting framework with fully generative Bayesian nonparametric modeling
+
+### 4. Estimation of Causal Survival
 
 Given weights $w$, treatment-specific survival probabilities are estimated as:
 
@@ -87,7 +111,7 @@ Posterior inference integrates over the distribution of weights, yielding:
 - credible intervals reflecting uncertainty in covariate structure
 
 
-### 4. Simulation Study
+### 5. Simulation Study
 
 A multi-study simulation framework is used to evaluate performance:
 - Studies with heterogeneous covariate distributions
@@ -104,13 +128,20 @@ Evaluation metrics:
 - Root mean squared error
 - Coverage of credible intervals
 
-### 5. Extensions (Post-Project)
+### 6. Extensions and Ongoing Work
 
-Planned extensions include:
-- Dependent Dirichlet process models for study-specific distributions
-- Joint modeling of reconstruction uncertainty and causal inference
-- Full survival-curve inference beyond fixed time points
-- Application to real multi-trial oncology datasets
+This project naturally separates into two complementary directions:
+
+**Causal inference with reconstructed IPD (current focus):**
+- Robust estimation under covariate shift using auxiliary summaries
+- Target-population weighting and uncertainty quantification
+
+**Bayesian nonparametric modeling (ongoing extension):**
+- Dirichlet process mixture models for survival distributions
+- Comparison between design-based and model-based estimators
+- Potential extension to dependent Dirichlet processes for study-specific heterogeneity
+
+While the current implementation integrates both perspectives, future work may develop these directions independently as separate research projects.
 
 ---
 
