@@ -86,7 +86,8 @@ def summarize_simulated_covariates(
     summary = (
         df.groupby(group_cols)
         .agg(
-            age_mean=("age", "mean"),
+            age_median=("age", "median"),
+            age_mean=("age", "mean"),   # optional: keep if you want both
             male_rate=("male", "mean"),
             ecog0_rate=("ecog0", "mean"),
             metastatic_rate=("metastatic", "mean"),
